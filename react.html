@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ReactJS Practise</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+</head>
+<body>
+
+    <div id="demo"></div>
+
+    <div class="board" id="movie_app"></div>
+
+    <div id="container"></div>
+
+    <div id="checkbox"></div>
+
+    <script type="text/babel">
+
+        // event Handling
+        var Comment = React.createClass({
+            edit: function () {
+              alert('editing comment');
+            },
+
+            remove: function () {
+              alert('removing comment');
+            },
+
+            render: function () {
+                return(
+                    <div className="commentContainer">
+                        <div className="commentText"> {this.props.children} </div>
+                        <button onClick={this.edit} className="button-primary">Edit</button>
+                        <button onClick={this.remove} className="button-danger">Remove</button>
+                    </div>
+                );
+            }
+        });
+
+        // State changing
+        var Checkbox = React.createClass({
+
+            getInitialState: function(){
+                return {checked: true}
+            },
+
+            handleCheck: function () {
+                this.setState({checked: !this.state.checked})
+            },
+
+            render: function () {
+                var msg;
+                if (this.state.checked){
+                    msg = 'checked'
+                }
+                else {
+                    msg = 'unchecked'
+                }
+
+                return (
+                        <div>
+                            <input type="checkbox" onChange={this.handleCheck} defaultChecked={this.state.checked} />
+                            <h3>Checkbox is {msg}</h3>
+                        </div>
+                );
+            }
+        });
+
+        ReactDOM.render(
+                <div>
+                    <Checkbox />
+                </div>
+            , document.getElementById('check'));
+
+
+        var Test = React.createClass({
+
+            render: function () {
+                return(
+                        <div>
+                            <h1>Sachin and Nitin are my bros.</h1>
+                            <p>They are my nice bros.</p>
+                        </div>
+                );
+            }
+
+        });
+
+        var More = React.createClass({
+            render: function () {
+                return(
+                        <div>
+                            <hr/>
+                            <h2>Hello, Please don't touch this.</h2>
+                            <p>I am trying to learn React JS and I am enjoying this.</p>
+                        </div>
+                );
+            }
+        });
+
+        var Movie = React.createClass({
+            render: function () {
+                return(
+                        <div>
+                            <hr/>
+                            <h1>Movie Name : {this.props.title} </h1>
+                            <h4>Genre : {this.props.genre} </h4>
+                        </div>
+                )
+            }
+        });
+
+        ReactDOM.render(
+            <div className="board">
+                <Comment>Hey There</Comment>
+                <Comment>I want to Join your program</Comment>
+                <Comment>To Learn some new things</Comment>
+            </div>, document.getElementById('container')
+        );
+
+        ReactDOM.render(
+            <div>
+                <Test />
+                <More />
+            </div>
+            , document.getElementById('demo'));
+        ReactDOM.render(
+            <div>
+                <Movie title="Ghatak" genre="Action" />
+                <Movie title="Dangal" genre="Biography"/>
+                <Movie title="Humko Deewana Kar Gaye" genre="Romance, Drama"/>
+                <Movie title="Dunkirk" genre="Action"/>
+        </div>, document.getElementById('movie_app'));
+    </script>
+
+</body>
+</html>
